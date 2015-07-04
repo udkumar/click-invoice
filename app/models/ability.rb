@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= AdminUser.new  
+    user ||= AdminUser.new
 
     if user.admin
       can :manage, AdminUser
@@ -12,6 +12,8 @@ class Ability
     can :manage, Organization, :admin_user_id => user.id
     can :manage, Invoice, :admin_user_id => user.id
 
+    can :manage, Category
+    can :manage, Product
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
