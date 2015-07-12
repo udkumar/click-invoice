@@ -11,8 +11,9 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+gem 'therubyracer'
 
-gem 'pg'
+gem 'mysql2'
 
 gem 'jquery-rails'
 gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
@@ -22,7 +23,10 @@ gem 'choices' # Configuration files
 gem 'country_select'
 gem 'cancan'
 
-gem 'rails_12factor', group: :production
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
