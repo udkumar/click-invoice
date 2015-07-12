@@ -4,12 +4,17 @@ class Client < ActiveRecord::Base
   belongs_to :admin_user
 
   validates :name, :presence => true
+  validates :address, :presence => true
+  validates :phone, :presence => true
+
   validates :email, :format => { :with => /^(.+@.+\..+)?$/, :message => "is not a valid email address." }
 
+  validates :code, uniqueness: true
   attr_accessible :name, :address, :phone, :code, :email, :organization_id
 
 
   def client_code
-  	rand(10000)
+  	member_code = code || ("HCB/2015/" + 4.to_s)
+  	member_code
   end
 end

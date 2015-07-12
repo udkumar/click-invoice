@@ -14,7 +14,7 @@ ActiveAdmin.register Client do
     column :address do |client|
       truncate client.address
     end
-    column :code
+    column :code, :label => "Member Code"
     column :phone
     column do |client|
       link_to("Details", admin_client_path(client)) + " | " + \
@@ -24,22 +24,22 @@ ActiveAdmin.register Client do
   end
 
   show :title => :name do
-    panel "Client Details" do
+    panel "Member Details" do
       attributes_table_for client do
         row("Name") { client.name }
         row("Email") { mail_to client.email }
         row("Address") { client.address }
-        row("Code") { client.code }
+        row("Member Code") { client.code }
         row("Phone") { client.phone }
       end
     end
   end
 
   form do |f|
-    f.inputs "Client" do
+    f.inputs "Member" do
       f.input :name
       f.input :email
-      f.input :code, :input_html => { :value => "HC/200"}, :label => "Member Code"
+      f.input :code, :input_html => { :value => client.client_code, :readonly => true }, :label => "Member Code"
       f.input :address
       f.input :phone
     end
@@ -53,7 +53,7 @@ ActiveAdmin.register Client do
   sidebar "Latest Invoices", :only => :show do
     table_for Invoice.where(:client_id => client.id).order('created_at desc').limit(5).all do |t|
       t.column("Status") { |invoice| status_tag invoice.status, invoice.status_tag }
-      t.column("Code") { |invoice| link_to "##{invoice.code}", admin_invoice_path(invoice) }
+      t.column("Invoice Code") { |invoice| link_to "##{invoice.code}", admin_invoice_path(invoice) }
       t.column("Total") { |invoice| number_to_currency invoice.total }
     end
   end
