@@ -27,6 +27,9 @@ ActiveAdmin.register Product do
   end
 
   form do |f|
+    f.inputs "Category" do
+      f.input :category, :collection => current_admin_user.category
+    end
     f.inputs "Client" do
       f.input :product_code, :label => "Product Code"
       f.input :name, :label => "Product Name"

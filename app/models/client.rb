@@ -5,7 +5,7 @@ class Client < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :address, :presence => true
-  validates :phone, :presence => true
+  validates :phone, :presence => true, :numericality => true
 
   validates :email, :format => { :with => /^(.+@.+\..+)?$/, :message => "is not a valid email address." }
 
@@ -14,7 +14,8 @@ class Client < ActiveRecord::Base
 
 
   def client_code
-  	member_code = code || ("HCB/2015/" + 4.to_s)
+  	member_code = self.code || ("HCB/2015/" + 101.to_s)
   	member_code
   end
+
 end
