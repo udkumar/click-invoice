@@ -1,6 +1,6 @@
 ActiveAdmin.register Client do
   filter :name
-  filter :email
+  filter :code
 
   index do
     column :name
@@ -39,7 +39,7 @@ ActiveAdmin.register Client do
     f.inputs "Member" do
       f.input :name
       f.input :email
-      f.input :code, :input_html => { :value => client.client_code, :readonly => true }, :label => "Member Code"
+      f.input :code, :input_html => { :value => f.object.client_code, :readonly => true }, :label => "Member Code"
       f.input :address
       f.input :phone
     end

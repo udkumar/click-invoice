@@ -90,7 +90,7 @@ ActiveAdmin.register Invoice do
 
     column :client
 
-    column "Issued" do |invoice|
+    column "Order Date" do |invoice|
       due = if invoice.due_date
         " (due in #{distance_of_time_in_words Time.now, invoice.due_date})"
       else
@@ -171,10 +171,10 @@ ActiveAdmin.register Invoice do
       end
     end
 
-    panel "Items" do
+    panel "Products" do
       table_for invoice.items do |t|
-        t.column("Qty.") { |item| number_with_delimiter item.quantity }
         t.column("Description") { |item| item.description }
+        t.column("Qty.") { |item| number_with_delimiter item.quantity }
         t.column("Per Unit") { |item| number_to_currency item.amount, locale: :ru }
         t.column("Total") { |item| number_to_currency item.total, locale: :ru}
 
@@ -235,11 +235,11 @@ ActiveAdmin.register Invoice do
       f.input :client, :collection => current_admin_user.clients
     end
 
-    f.inputs "Items" do
+    f.inputs "Products" do
       f.has_many :items do |i|
         i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
-        i.input :quantity
         i.input :description
+        i.input :quantity
         i.input :amount
       end
     end
@@ -247,7 +247,7 @@ ActiveAdmin.register Invoice do
     f.inputs "Options" do
       f.input :code, :hint => "The invoice's code, should be incremental. Suggested code: #{Invoice.suggest_code}"
       f.input :status, :collection => Invoice.status_collection, :as => :radio
-      f.input :due_date, :input_html => {:style => "width: 30%;"}, :hint => "when customer will paid, that that will fill here"
+      f.input :due_date, :as => :datepicker, :input_html => {:style => "width: 30%;"}, :hint => "when customer will paid, that that will fill here"
       f.input :tax, :input_html => { :style => "width: 30px"}, :hint => "This should be a percentage, from 0 to 100 (without the % sign)"
       f.input :discount, :input_html => { :style => "width: 30px"}, :hint => "This should be a percentage, from 0 to 100 (without the % sign)"
     end

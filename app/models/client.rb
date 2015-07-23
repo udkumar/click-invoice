@@ -14,8 +14,7 @@ class Client < ActiveRecord::Base
 
 
   def client_code
-  	member_code = self.code || ("HCB/2015/" + 101.to_s)
-  	member_code
+  	member_code = code || ("HCB/2015/" + rand(10).to_s)
   end
 
 end

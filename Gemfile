@@ -22,6 +22,7 @@ gem 'prawn' # Generates PDF files
 gem 'choices' # Configuration files
 gem 'country_select'
 gem 'cancan'
+gem "rails3-jquery-autocomplete"
 
 group :production do
   gem 'pg'
