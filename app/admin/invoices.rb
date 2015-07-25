@@ -214,8 +214,9 @@ ActiveAdmin.register Invoice do
   end
 
   filter :client
-  filter :code
-  filter :due_date
+  filter :code, label: "Invoice Code"
+  filter :due_date, label: "Due Date"
+  filter :created_at, label: "Order Date"
 
   sidebar "Bill To", :only => :show do
     attributes_table_for invoice.client do

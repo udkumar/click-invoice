@@ -1,0 +1,9 @@
+class CreateProductCodes < ActiveRecord::Migration
+  def change
+    create_table :product_codes do |t|
+      t.code, :string
+      t.description, :text
+      t.timestamps
+    end
+  end
+end

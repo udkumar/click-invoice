@@ -2,7 +2,7 @@ ActiveAdmin.register Product do
   filter :name
 
   index do
-    column :product_code
+    column :product_code_id
     column :name 
     column :market_price
     column :our_price
@@ -17,7 +17,7 @@ ActiveAdmin.register Product do
   show :title => :name do
     panel "Product Details" do
       attributes_table_for product do
-        row("Product_Code") { product.product_code }
+        row("Product_Code") { product.product_code.code }
         row("Name") { mail_to product.name }
         row("Market_Price") { product.market_price }
         row("Our_Price") { product.our_price }
@@ -28,10 +28,10 @@ ActiveAdmin.register Product do
 
   form do |f|
     f.inputs "Category" do
-      f.input :category, :collection => current_admin_user.category
+      f.input :category_id, :as => :select, :collection => Category.all.map{|u| ["#{u.name}", u.id]}
     end
     f.inputs "Client" do
-      f.input :product_code, :label => "Product Code"
+      f.input :product_code, :label => "Product Code", :as => :select, :collection => ProductCode.all.map{|u| ["#{u.code}", u.id]}
       f.input :name, :label => "Product Name"
       f.input :market_price, :label => "Market Price"
       f.input :our_price, :label => "HapppyClub Price"

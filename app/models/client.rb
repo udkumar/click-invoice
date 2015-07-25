@@ -14,7 +14,20 @@ class Client < ActiveRecord::Base
 
 
   def client_code
-  	member_code = code || ("HCB/2015/" + rand(10).to_s)
+    #logic to split year between two slashs "HCB/2015/1011".split('/').fetch(-2) 
+    code = Client.last.code
+    if code.present?
+      if Time.now.year.to_s != code.split('/').fetch(-2)
+        member_code = ("HCB/#{Time.now.year}/" + rand(5000).to_s)
+      else
+        code_incr = code[code[0, 9].length, code.length].to_i+1
+        member_code = "#{code[0, 9]}#{code_incr}" || ("HCB/#{Time.now.year}/" + rand(5000).to_s)
+      end
+    else
+      member_code = code || ("HCB/#{Time.now.year}/" + rand(5000).to_s)
+    end
+     member_code
+     
   end
 
 end
