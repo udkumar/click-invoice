@@ -3,9 +3,9 @@ class Item < ActiveRecord::Base
   
   validates :quantity, :presence => true, :numericality => { :integer => true }
   validates :amount, :presence => true, :numericality => true
-  validates :description, :presence => true
+  validates :product_code, :presence => true
 
-  attr_accessible :quantity, :description, :amount
+  attr_accessible :quantity, :product_code, :amount
   
   def total
     self.quantity * self.amount

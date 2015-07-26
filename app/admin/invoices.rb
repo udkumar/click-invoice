@@ -173,7 +173,7 @@ ActiveAdmin.register Invoice do
 
     panel "Products" do
       table_for invoice.items do |t|
-        t.column("Description") { |item| item.description }
+        t.column("Product Code") { |item| item.product_code }
         t.column("Qty.") { |item| number_with_delimiter item.quantity }
         t.column("Per Unit") { |item| number_to_currency item.amount, locale: :ru }
         t.column("Total") { |item| number_to_currency item.total, locale: :ru}
@@ -239,7 +239,7 @@ ActiveAdmin.register Invoice do
     f.inputs "Products" do
       f.has_many :items do |i|
         i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
-        i.input :description
+        i.input :product_code#, :label => "Product Code", :as => :select, :collection => ProductCode.all.map{|u| ["#{u.code}", u.id]}
         i.input :quantity
         i.input :amount
       end

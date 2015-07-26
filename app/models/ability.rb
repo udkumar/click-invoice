@@ -6,16 +6,18 @@ class Ability
 
     if user.admin
       can :manage, AdminUser
-      can :manage, Product
+      
       can :manage, Category
       can :manage, Organization, :admin_user_id => user.id
       can :manage, Client, :admin_user_id => user.id
-      can :manage, ProductCode
+      
     end
 
     
     
     can :manage, Invoice, :admin_user_id => user.id
+    can :manage, Product
+    can :manage, ProductCode
 
     
     
